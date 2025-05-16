@@ -18,7 +18,7 @@
         return;
       }
 
-      const apiUrl = 'https://script.google.com/macros/s/AKfycbwetWEy_UiYMH3Md51ckn69afWoeeu_3QSYiK1cvNTD36cH3zvIgt_Ckp13mNleKma2/exec=' + encodeURIComponent(seat); // 替換為你的 Apps Script 網址
+      const apiUrl = 'https://script.google.com/macros/s/AKfycbwetWEy_UiYMH3Md51ckn69afWoeeu_3QSYiK1cvNTD36cH3zvIgt_Ckp13mNleKma2/exec?seat=' + encodeURIComponent(seat); // 替換為你的 Apps Script 網址
 
       try {
         const res = await fetch(apiUrl);
@@ -40,3 +40,4 @@
   </script>
 </body>
 </html>
+
