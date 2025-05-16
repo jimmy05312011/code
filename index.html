@@ -1,43 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>查詢卡號</title>
-</head>
-<body>
-  <h2>輸入座號查詢卡號</h2>
-  <input type="text" id="seatInput" placeholder="例如：01">
-  <button onclick="fetchCards()">查詢</button>
-
-  <div id="result" style="margin-top: 20px;"></div>
-
-  <script>
-    async function fetchCards() {
-      const seat = document.getElementById('seatInput').value.trim();
-      if (!seat) {
-        alert("請輸入座號");
-        return;
-      }
-
-      const apiUrl = 'https://script.google.com/macros/s/AKfycbwetWEy_UiYMH3Md51ckn69afWoeeu_3QSYiK1cvNTD36cH3zvIgt_Ckp13mNleKma2/exec?seat=' + encodeURIComponent(seat);
-
-      try {
-        const res = await fetch(apiUrl);
-        const cards = await res.json();
-
-        const resultDiv = document.getElementById('result');
-        if (cards.length === 0) {
-          resultDiv.innerHTML = `<p>座號 ${seat} 沒有卡號紀錄。</p>`;
-        } else {
-          resultDiv.innerHTML = `<b>座號 ${seat} 的卡號如下：</b><ul>` +
-            cards.map(card => `<li>${card}</li>`).join('') +
-            `</ul>`;
-        }
-      } catch (err) {
-        console.error(err);
-        alert("查詢失敗，請稍後再試。");
-      }
+<script>
+  async function fetchCards() {
+    const seat = String(parseInt(document.getElementById('seatInput').value.trim(), 10));
+    if (!seat) {
+      alert("請輸入座號");
+      return;
     }
-  </script>
-</body>
-</html>
+
+    const apiUrl = 'https://script.google.com/macros/s/AKfycbwetWEy_UiYMH3Md51ckn69afWoeeu_3QSYiK1cvNTD36cH3zvIgt_Ckp13mNleKma2/exec?seat=' + encodeURIComponent(seat);
+
+    try {
+      const res = await fetch(apiUrl);
+      const cards = await res.json();
+
+      const resultDiv = document.getElementById('result');
+      if (cards.length === 0) {
+        resultDiv.innerHTML = `<p>座號 ${seat} 沒有卡號紀錄。</p>`;
+      } else {
+        resultDiv.innerHTML = `<b>座號 ${seat} 的卡號如下：</b><ul>` +
+          cards.map(card => `<li>${card}</li>`).join('') +
+          `</ul>`;
+      }
+    } catch (err) {
+      console.error(err);
+      alert("查詢失敗，請稍後再試。");
+    }
+  }
+</script>
