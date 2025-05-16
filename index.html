@@ -2,13 +2,14 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>卡號查詢</title>
+  <title>查詢卡號</title>
 </head>
 <body>
   <h2>輸入座號查詢卡號</h2>
-  <input type="text" id="seatInput" placeholder="請輸入座號">
+  <input type="text" id="seatInput" placeholder="例如：01">
   <button onclick="fetchCards()">查詢</button>
-  <div id="result"></div>
+
+  <div id="result" style="margin-top: 20px;"></div>
 
   <script>
     async function fetchCards() {
@@ -18,7 +19,7 @@
         return;
       }
 
-      const apiUrl = 'https://script.google.com/macros/s/AKfycbwetWEy_UiYMH3Md51ckn69afWoeeu_3QSYiK1cvNTD36cH3zvIgt_Ckp13mNleKma2/exec?seat=' + encodeURIComponent(seat); // 替換為你的 Apps Script 網址
+      const apiUrl = 'https://script.google.com/macros/s/AKfycbwetWEy_UiYMH3Md51ckn69afWoeeu_3QSYiK1cvNTD36cH3zvIgt_Ckp13mNleKma2/exec?seat=' + encodeURIComponent(seat);
 
       try {
         const res = await fetch(apiUrl);
@@ -26,7 +27,7 @@
 
         const resultDiv = document.getElementById('result');
         if (cards.length === 0) {
-          resultDiv.innerHTML = `座號 ${seat} 沒有卡號紀錄。`;
+          resultDiv.innerHTML = `<p>座號 ${seat} 沒有卡號紀錄。</p>`;
         } else {
           resultDiv.innerHTML = `<b>座號 ${seat} 的卡號如下：</b><ul>` +
             cards.map(card => `<li>${card}</li>`).join('') +
@@ -40,4 +41,3 @@
   </script>
 </body>
 </html>
-
